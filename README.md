@@ -39,7 +39,7 @@ the second as
 p "com_out" index 1 u 2:3 w p pt 7
 and so on..
 
-6. Use load "Plot_movie.plt" in MakeAnimation folder
+6. Use load "Plot_movie.plt" in MakeAnimation folder to make animations of cell movements
 
 7. In Analysis folder use ComputeMSD as 
 ./ComputeMSD ../Alpha1.2/com_out 3000 10 225 60 out
@@ -65,10 +65,9 @@ to show everything
 time cell_id x_pbc y_pbc x_unwrapped y_unwrapped
 ...
 
-the unwrapped coordinates are used to calculate MSD.
+The unwrapped coordinates are used to calculate MSD.
 
-
-Finally, recall that Ncells=60x60/16=225 where 16 is the typical cell area
+Recall that Ncells=60x60/16=225 where 16 is the typical cell area
 
 
 
