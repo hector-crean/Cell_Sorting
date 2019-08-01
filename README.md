@@ -1,14 +1,16 @@
 # Morphogenesis 
 
 
+§ Quick use guid
 
-1. CPM_v4_pbc.c++ is the source file for the standard Cellular Potts Model 
+1. gwitch21.cp is the source file for the standard Cellular Potts Model 
  
-2. Compile as c++ CPM_v4_pbc.c++ -o CPM_v4_pbc -O3
+2. Compile as c++ gwitch21.cp -o gs
 
-3. Run as ./CPM_v4_pbc outname(string) Alpha(numeric value) Fraction_stiff_cells(0<f<1)
-Example:  ./CPM_v4_pbc out 1 1 
-for all cells having stiffness 1
+3. Run as ./gs outname(string) cell_adherence_alpha(0-infinite) Fraction_B_receiver_cells(0<f<1) switch_rate_ON_B->C (0-1) switch_Rate_OFF_C->B (0-1) cell_adherence_stiffer_cells (0-infinite) cell_adherence_stiffest_cells (0-infinite) swtich_rate_ON_A->D (0-1) switch_rate_off_D->A
+Example: ./gs out 1 0.5 0.3 0.1 1.5 1.8 0.1 0.05
+
+note: In the simulation each cell type has a different adhesiveness, which has an effect on the form of the adhesion matrix. In the accompanying code, these are referred to as α _soft (B cell), α _stiff (A cell), α _stiffer (D cell), α _stiffest (C cell), where the adhesiveness/stiffness of the cells is given by: α_soft < α_stiff < α_stiffer < α_stiffest. Two additional control parameters (k_on2 and k_off2) are added to control for the switch rate between type A and type D cells.
 
 4. Text files with lattice coordinates (x,y), spin id and Alpha are reported in a folder:
 Alpha_1/out_t*
@@ -28,7 +30,7 @@ CellID x y
 
 ...
 
-so plot first frame as
+We can plot first frame as
 p "com_out" index 0 u 2:3 w p pt 7
 the second as
 p "com_out" index 1 u 2:3 w p pt 7
@@ -44,7 +46,6 @@ with lagtime 10 montecarlo sweeps
 225 cells on a 60x60 grid &
 writing on MSD_out.dat
 e.g: ./MSD ../Alpha1.4/com_out 270 10 225 60 out
-
 
 
 MSD_out.dat contains the average across cells and time in the first block (index 0), which can be plotted as 
@@ -64,18 +65,7 @@ time cell_id x_pbc y_pbc x_unwrapped y_unwrapped
 the unwrapped coordinates are used to calculate MSD.
 
 
-Finally, recall that Ncells=60x60/16=225
-where 16 is the typical cell area
-
-
-
-set key left top
-
-
-p "MSD_out(a=1,f=0.5)" i 0 u 1:2, "MSD_out(a=1.2,f=0.5)" i 0 u 1:2, "MSD_out(a=1.4,f=0.5)" i 0 u 1:2, "MSD_out(a=1.6,f=0.5)" i 0 u 1:2, "MSD_out(a=1.8,f=0.5)" i 0 u 1:2, "MSD_out(a=2,f=0.5)" i 0 u 1:2
-
-p "MSD_out(a=1.2,f=0.75)" i 0 u 1:2 title "α=1.2" with lines ls 5, "MSD_out(a=1.4,f=0.75)" i 0 u 1:2 title "α=1.4" with lines ls 4 , "MSD_out(a=1.6,f=0.75)" i 0 u 1:2 title "α=1.6" with lines ls 3 , "MSD_out(a=1.8,f=0.75)" i 0 u 1:2 title "α=1.8"  with lines ls 2, "MSD_out(a=2,f=0.75)" i 0 u 1:2 title "α=2" with lines ls 1
-
+Finally, recall that Ncells=60x60/16=225 where 16 is the typical cell area
 
 
 
